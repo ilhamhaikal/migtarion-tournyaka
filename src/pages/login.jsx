@@ -1,102 +1,88 @@
 import React from "react";
-import "../assets/css/login.css";  // Login-specific styles
+import "../assets/css/login.css";
+import backgroundImage from "../assets/img/batukaras.png";
 
 const Login = () => {
   return (
-    <div
-      className="masthead sign text-white"
-      style={{ backgroundImage: "url(D:\belajarprogram\tournyaka_react_go\src\assets\img\bg.jpg)" }}
-    >
-      <div className="masthead-gradient sign"></div>
-      <div className="container">
-        <div className="row">
-          <div className="col sign">
-            <h1 className="display-1 pb-2 text-white">tournyaka</h1>
-            <h6 className="pb-4 display-text">
-              Tournyaka merupakan sebuah platform pariwisata berbasis digital
-              dengan konsep smart tourism yang memudahkan wisatawan untuk
-              mendapatkan layanan jasa pariwisata di Pangandaran
-            </h6>
-          </div>
-          <div className="col">
-            <div className="card sign-modal">
-              <div className="card-body text-center">
-                <h1 className="card-title modal-title">Login</h1>
-                <p>Mulai menjelajah lebih jauh dari sini.</p>
+    <div className="login-container">
+      <div
+        className="masthead text-white"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="masthead-gradient"></div>
+        <div className="container">
+          <div className="row align-items-center justify-content-center min-vh-100">
+            {/* Left Column - Brand Info */}
+            <div className="col-md-5 brand-section">
+              <div className="brand-content animate__fadeInLeft">
+                <h1 className="brand-title">tournyaka</h1>
+                <p className="brand-description">
+                  Tournyaka merupakan sebuah platform pariwisata berbasis digital
+                  dengan konsep smart tourism yang memudahkan wisatawan untuk
+                  mendapatkan layanan jasa pariwisata di Pangandaran
+                </p>
+              </div>
+            </div>
 
-                {/* Button Login Google */}
-                <div className="row mx-auto mb-2">
-                  <button className="btn btn-google">
-                    <div className="logo">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        {/* SVG path */}
-                      </svg>
-                      Masuk dengan Google
-                    </div>
-                  </button>
+            {/* Right Column - Login Form */}
+            <div className="col-md-5 form-section">
+              <div className="login-card animate__fadeInRight">
+                <h2 className="login-title">Welcome Back!</h2>
+                <p className="login-subtitle">Mulai menjelajah lebih jauh dari sini.</p>
+
+                <button className="social-login-btn">
+                  <img
+                    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                    alt="Google"
+                    className="social-icon"
+                  />
+                  Masuk dengan Google
+                </button>
+
+                <div className="divider">
+                  <span>Atau masuk dengan</span>
                 </div>
 
-                {/* Divider */}
-                <div className="row mx-auto">
-                  <div className="col">
-                    <hr className="divider" />
-                  </div>
-                  <div className="col-5 mt-1">
-                    <p>Atau masuk dengan</p>
-                  </div>
-                  <div className="col">
-                    <hr className="divider" />
-                  </div>
-                </div>
-
-                {/* Form Login */}
-                <form action="#" method="post">
-                  <div className="row mx-auto mb-3">
+                <form className="login-form">
+                  <div className="form-group">
+                    <label className="form-label">Email atau Username</label>
                     <input
                       type="text"
-                      className="form-control"
-                      name="login"
-                      placeholder="Email atau Username"
+                      className="form-input"
+                      placeholder="Masukkan email atau username"
                     />
                   </div>
-                  <div className="row mx-auto mb-2">
+
+                  <div className="form-group">
+                    <label className="form-label">Password</label>
                     <input
                       type="password"
-                      name="password"
-                      className="form-control"
-                      placeholder="Password"
+                      className="form-input"
+                      placeholder="Masukkan password"
                     />
                   </div>
 
-                  <div className="row mx-auto justify-content-end">
-                    <div className="col-auto">
-                      <a href="#" className="link">
-                        Lupa Password?
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="row mt-4 mx-auto justify-content-center">
-                    <button type="submit" className="btn btn-header">
-                      Masuk
-                    </button>
-                  </div>
-                </form>
-
-                <div className="row mx-auto justify-content-center">
-                  <div className="col-auto">
-                    <a>Belum memiliki akun? </a>
-                    <a href="/register" className="link">
-                      Daftar
+                  <div className="form-action">
+                    <label className="remember-me">
+                      <input type="checkbox" /> Ingat saya
+                    </label>
+                    <a href="#" className="forgot-password">
+                      Lupa Password?
                     </a>
                   </div>
-                </div>
+
+                  <button type="submit" className="login-button">
+                    Masuk
+                  </button>
+
+                  <p className="register-link">
+                    Belum memiliki akun? <a href="/register">Daftar</a>
+                  </p>
+                </form>
               </div>
             </div>
           </div>

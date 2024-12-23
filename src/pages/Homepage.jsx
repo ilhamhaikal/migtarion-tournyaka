@@ -1,22 +1,32 @@
 import React from "react";
-import "../assets/css/global.css"// Pastikan Anda memiliki file CSS untuk styling.
+import "../assets/css/global.css";
+import bgImage from "../assets/img/bg.jpg";
 
 const Homepage = () => {
   return (
     <div>
-      {/* Header Section */}
-      <header className="masthead text-white" style={{ backgroundImage: "url('/assets/img/bg.jpg')" }}>
+      <header 
+        className="masthead text-white" 
+        style={{ 
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          minHeight: '100vh',
+          position: 'relative'
+        }}
+      >
         <div className="masthead-gradient"></div>
-        <div className="container">
-          <div className="heading">
-            <div className="heading-text">
-              <h1 className="display-1 pb-2 text-white">tournyaka</h1>
-              <h6 className="pb-4 display-text">
+        <div className="container h-100">
+          <div className="heading d-flex align-items-center justify-content-center h-100">
+            <div className="heading-text text-center animate__animated animate__fadeIn">
+              <h1 className="display-1 pb-2 text-white fw-bold">tournyaka</h1>
+              <h6 className="pb-4 display-text fs-4 mx-auto" style={{ maxWidth: '800px' }}>
                 Tournyaka merupakan sebuah platform pariwisata berbasis digital dengan konsep smart tourism yang memudahkan wisatawan
                 untuk mendapatkan layanan jasa pariwisata di Pangandaran
               </h6>
-              <a className="btn btn-header btn-warning" href="/mengapa_pilih_pangandaran">
-                Ayo Berangkat!
+              <a className="btn btn-warning btn-lg px-5 py-3 rounded-pill shadow-sm hover-scale" href="/mengapa_pilih_pangandaran">
+                Ayo Berangkat! <i className="fas fa-arrow-right ms-2"></i>
               </a>
             </div>
           </div>
