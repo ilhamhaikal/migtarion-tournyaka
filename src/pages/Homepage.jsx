@@ -1,98 +1,92 @@
 import React from "react";
 import "../assets/css/global.css";
 import bgImage from "../assets/img/bg.jpg";
+import logoImage from "../assets/img/Logo.png";
+import pangandaranImage from "../assets/img/pangandaran.png";
 
 const Homepage = () => {
   return (
-    <div>
+    <div className="homepage">
+      {/* Hero Section */}
       <header 
-        className="masthead text-white" 
-        style={{ 
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-          minHeight: '100vh',
-          position: 'relative'
-        }}
+        className="hero-section" 
+        style={{ backgroundImage: `url(${bgImage})` }}
       >
-        <div className="masthead-gradient"></div>
-        <div className="container h-100">
-          <div className="heading d-flex align-items-center justify-content-center h-100">
-            <div className="heading-text text-center animate__animated animate__fadeIn">
-              <h1 className="display-1 pb-2 text-white fw-bold">tournyaka</h1>
-              <h6 className="pb-4 display-text fs-4 mx-auto" style={{ maxWidth: '800px' }}>
-                Tournyaka merupakan sebuah platform pariwisata berbasis digital dengan konsep smart tourism yang memudahkan wisatawan
-                untuk mendapatkan layanan jasa pariwisata di Pangandaran
-              </h6>
-              <a className="btn btn-warning btn-lg px-5 py-3 rounded-pill shadow-sm hover-scale" href="/mengapa_pilih_pangandaran">
-                Ayo Berangkat! <i className="fas fa-arrow-right ms-2"></i>
-              </a>
-            </div>
+        <div className="hero-overlay"></div>
+        <div className="container">
+          <div className="hero-content animate__fadeIn">
+            <h1 className="hero-title">tournyaka</h1>
+            <p className="hero-description">
+              Tournyaka merupakan sebuah platform pariwisata berbasis digital dengan konsep smart tourism 
+              yang memudahkan wisatawan untuk mendapatkan layanan jasa pariwisata di Pangandaran
+            </p>
+            <a className="cta-button" href="/explore">
+              Ayo Berangkat! <i className="fas fa-arrow-right"></i>
+            </a>
           </div>
         </div>
       </header>
 
-      {/* Content Section 1 */}
-      <section className="page-section1">
+      {/* About Section */}
+      <section className="about-section">
         <div className="container">
-          <div className="page-content">
-            <h5 className="page-text">
-              Tournyaka merupakan sebuah platform pariwisata yang menyediakan berbagai kebutuhan wisatawan dalam berwisata ke Pangandaran
-              seperti layanan pemandu wisata (<i>tour guide</i>), paket wisata, dan rencana perjalanan (<i>itenerary planner</i>)
-              yang menawarkan pengalaman yang lebih personal dimana wisatawan dapat mengatur rencana perjalanan ke berbagai destinasi
-              wisata Pangandaran yang diinginkan.
-            </h5>
-            <a>
-              <img className="logo" src="/assets/img/Logo.png" alt="Tournyaka Logo" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Content Section 2 */}
-      <section className="page-section2">
-        <div className="container">
-          <div className="page-content">
-            <h1 className="page-header">Mengapa harus tournyaka?</h1>
-            <div className="row-content">
-              {/* Detail 1 */}
-              <div className="details">
-                <h5 className="headline">Liburan sesuai mood kamu</h5>
-                <p className="description">
-                  Tournyaka akan memberikan rekomendasi tempat wisata dan suasana liburan yang sesuai dengan suasana hati kamu.
-                </p>
-              </div>
-              {/* Detail 2 */}
-              <div className="details">
-                <h5 className="headline">Bikin nyesel</h5>
-                <p className="description">
-                  Kamu akan auto nyesel deh kalo ke Pangandaran tanpa ditemani Tournyaka.
-                </p>
-              </div>
-              {/* Tambahkan detail lain jika ada */}
+          <div className="about-content">
+            <div className="about-text animate__fadeInLeft">
+              <p className="about-description">
+                Tournyaka merupakan sebuah platform pariwisata yang menyediakan berbagai kebutuhan wisatawan 
+                dalam berwisata ke Pangandaran seperti layanan pemandu wisata (tour guide), 
+                paket wisata, dan rencana perjalanan (itenerary planner).
+              </p>
+            </div>
+            <div className="about-image animate__fadeInRight">
+              <img src={logoImage} alt="Tournyaka Logo" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Content Section 3 */}
-      <section className="page-section3">
+      {/* Features Section */}
+      <section className="features-section">
         <div className="container">
-          <div className="page-content">
-            <h1 className="page-header">Destinasi Terbaik</h1>
-            <p className="description">
-              Di Pangandaran banyak loh destinasi yang bisa bikin kamu nyaman dan ngelupain masalah yang lagi kamu hadapin.
-            </p>
-            <div className="row-content mt-4">
-              <div className="card-destinasi">
-                <img src="/assets/img/pangandaran.png" alt="Pangandaran" className="card-img" />
-                <div className="card-body">
-                  <h4 className="card-title">Pangandaran</h4>
-                  <p className="card-text">Pasti kalo wisata satu ini semua orang pada tau yah...</p>
-                </div>
+          <h2 className="section-title">Mengapa harus tournyaka?</h2>
+          <div className="features-grid">
+            <div className="feature-card animate__fadeInUp">
+              <div className="feature-icon">
+                <i className="fas fa-heart"></i>
               </div>
-              {/* Tambahkan kartu lainnya */}
+              <h3>Liburan sesuai mood kamu</h3>
+              <p>Tournyaka akan memberikan rekomendasi tempat wisata dan suasana liburan yang sesuai dengan suasana hati kamu.</p>
+            </div>
+            <div className="feature-card animate__fadeInUp" style={{animationDelay: "0.2s"}}>
+              <div className="feature-icon">
+                <i className="fas fa-star"></i>
+              </div>
+              <h3>Bikin nyesel</h3>
+              <p>Kamu akan auto nyesel deh kalo ke Pangandaran tanpa ditemani Tournyaka.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Destinations Section */}
+      <section className="destinations-section">
+        <div className="container">
+          <h2 className="section-title">Destinasi Terbaik</h2>
+          <p className="section-description">
+            Di Pangandaran banyak loh destinasi yang bisa bikin kamu nyaman dan ngelupain masalah yang lagi kamu hadapin.
+          </p>
+          <div className="destinations-grid">
+            <div className="destination-card animate__fadeInUp">
+              <div className="destination-image">
+                <img src={pangandaranImage} alt="Pangandaran" />
+              </div>
+              <div className="destination-content">
+                <h3>Pangandaran</h3>
+                <p>Pasti kalo wisata satu ini semua orang pada tau yah...</p>
+                <a href="/destinations/pangandaran" className="destination-link">
+                  Explore <i className="fas fa-arrow-right"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
