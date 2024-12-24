@@ -3,6 +3,7 @@ import "../assets/css/global.css";
 import bgImage from "../assets/img/bg.jpg";
 import logoImage from "../assets/img/Logo.png";
 import pangandaranImage from "../assets/img/pangandaran.png";
+import greencanyon from "../assets/img/green_canyon.png";
 import Navbar from "../layout/navbar";
 import Footer from "../layout/footer";
 
@@ -53,21 +54,33 @@ const Homepage = () => {
         {/* Features Section */}
         <section className="features-section">
           <div className="container">
-            <h2 className="section-title">Mengapa harus tournyaka?</h2>
+            <h2 className="section-title text-center">Mengapa harus tournyaka?</h2>
             <div className="features-grid">
               <div className="feature-card animate__fadeInUp">
                 <div className="feature-icon">
-                  <i className="fas fa-heart"></i>
+                  <i className="fas fa-map-marked-alt"></i>
                 </div>
-                <h3>Liburan sesuai mood kamu</h3>
-                <p>Tournyaka akan memberikan rekomendasi tempat wisata dan suasana liburan yang sesuai dengan suasana hati kamu.</p>
+                <h3>Panduan Lengkap</h3>
+                <p>Temukan panduan wisata terlengkap dengan rekomendasi tempat terbaik di Pangandaran</p>
+                <div className="feature-stat">500+ Tempat Wisata</div>
               </div>
-              <div className="feature-card animate__fadeInUp" style={{animationDelay: "0.2s"}}>
+
+              <div className="feature-card animate__fadeInUp" data-delay="0.2s">
                 <div className="feature-icon">
-                  <i className="fas fa-star"></i>
+                  <i className="fas fa-users"></i>
                 </div>
-                <h3>Bikin nyesel</h3>
-                <p>Kamu akan auto nyesel deh kalo ke Pangandaran tanpa ditemani Tournyaka.</p>
+                <h3>Tour Guide Berpengalaman</h3>
+                <p>Pemandu wisata profesional siap menemani perjalanan Anda dengan cerita menarik</p>
+                <div className="feature-stat">100+ Guide Terverifikasi</div>
+              </div>
+
+              <div className="feature-card animate__fadeInUp" data-delay="0.4s">
+                <div className="feature-icon">
+                  <i className="fas fa-route"></i>
+                </div>
+                <h3>Rute Terbaik</h3>
+                <p>Nikmati perjalanan dengan rute yang dioptimalkan dan hemat waktu</p>
+                <div className="feature-stat">50+ Rute Pilihan</div>
               </div>
             </div>
           </div>
@@ -101,6 +114,45 @@ const Homepage = () => {
                 </div>
               </div>
               {/* Add more destination cards here */}
+            <div className="destination-card animate__fadeInUp">
+              <div className="destination-image">
+                <img src={greencanyon} alt="Green Canyon" />
+                <div className="destination-overlay">
+                  <span className="destination-category">Wisata Alam</span>
+                </div>
+              </div>
+              <div className="destination-content">
+                <h3>Green Canyon</h3>
+                <p>Jelajahi keindahan ngarai hijau dengan body rafting yang menantang.</p>
+                <div className="destination-meta">
+                  <span><i className="fas fa-map-marker-alt"></i> Cijulang</span>
+                  <span><i className="fas fa-star"></i> 4.7</span>
+                </div>
+                <a href="/destinations/green-canyon" className="btn-explore">
+                  Explore <i className="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+
+            <div className="destination-card animate__fadeInUp">
+              <div className="destination-image">
+                <img src={pangandaranImage} alt="Citumang" />
+                <div className="destination-overlay">
+                  <span className="destination-category">Wisata Air</span>
+                </div>
+              </div>
+              <div className="destination-content">
+                <h3>Citumang</h3>
+                <p>Rasakan kesejukan air jernih dan pemandangan hutan yang asri.</p>
+                <div className="destination-meta">
+                  <span><i className="fas fa-map-marker-alt"></i> Parigi</span>
+                  <span><i className="fas fa-star"></i> 4.6</span>
+                </div>
+                <a href="/destinations/citumang" className="btn-explore">
+                  Explore <i className="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
             </div>
           </div>
         </section>

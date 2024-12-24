@@ -1,3 +1,8 @@
+:root {
+  --footer-btn-color: #FFC107;
+  --footer-btn-hover: #FFB300;
+}
+
 .footer {
   background-color: #1a1a1a;
   color: #fff;
@@ -99,6 +104,25 @@
   border-radius: 4px;
   background: #2a2a2a;
   color: #fff;
+}
+
+.newsletter-form input[type="submit"],
+.subscribe-btn {
+  background: var(--footer-btn-color);
+  color: #000;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form input[type="submit"]:hover,
+.subscribe-btn:hover {
+  background: var(--footer-btn-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
 }
 
 .newsletter-form button {

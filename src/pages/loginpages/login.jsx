@@ -1,7 +1,7 @@
 import React from "react";
-import "../assets/css/login.css";
-import backgroundImage from "../assets/img/batukaras.png";
-import Navbar from "../layout/navbar";
+import "../../assets/css/login.css";
+import backgroundImage from "../../assets/img/batukaras.png";
+import Navbar from "../../layout/navbar";
 
 const Login = () => {
   return (
@@ -14,11 +14,15 @@ const Login = () => {
             backgroundImage: `url(${backgroundImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh"
           }}
         >
           <div className="masthead-gradient"></div>
           <div className="container">
-            <div className="row align-items-center justify-content-center min-vh-100">
+            <div className="row justify-content-center align-items-center">
               {/* Left Column - Brand Info */}
               <div className="col-md-5 brand-section">
                 <div className="brand-content animate__fadeInLeft">
@@ -45,11 +49,6 @@ const Login = () => {
                     />
                     Masuk dengan Google
                   </button>
-
-                  <div className="divider">
-                    <span>Atau masuk dengan</span>
-                  </div>
-
                   <form className="login-form">
                     <div className="form-group">
                       <label className="form-label">Email atau Username</label>
@@ -73,7 +72,7 @@ const Login = () => {
                       <label className="remember-me">
                         <input type="checkbox" /> Ingat saya
                       </label>
-                      <a href="#" className="forgot-password">
+                      <a href="/forgetpassword" className="forgot-password">
                         Lupa Password?
                       </a>
                     </div>

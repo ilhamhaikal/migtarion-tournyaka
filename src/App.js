@@ -1,28 +1,32 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-// Import Pages
-import Login from "./pages/login";
-import Homepage from "./pages/Homepage"; // Tambahkan Homepage
-
-// Import Global CSS
+import Login from "./pages/loginpages/login";
+import Register from "./pages/loginpages/register";
+import ForgetPassword from "./pages/loginpages/forgetpassword";
+import Homepage from "./pages/Homepage";
+import Dashboard from "./pages/dashboard/dashboard";
+import AddArticle from "./pages/dashboard/AddArticle";
+import AboutUs from "./pages/AboutUs";
+import Contact from "./pages/contact";
 import "./assets/css/global.css";
 
 function App() {
   return (
     <Router>
-      <div>
-        {/* Global Layout */}
-        <Routes>
-          {/* Route Definitions */}
-          <Route path="/" element={<Homepage />} /> {/* Homepage Route */}
-          <Route path="/login" element={<Login />} />
-          {/* Tambahkan rute lainnya jika diperlukan */}
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/dashboard/*" element={<Dashboard />}>
+          <Route index element={<Dashboard />} />
+          <Route path="add-article" element={<AddArticle />} />
+        </Route>
+      </Routes>
     </Router>
   );
 }
-
 
 export default App;
