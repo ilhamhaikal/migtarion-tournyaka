@@ -26,7 +26,7 @@ const Login = () => {
               {/* Left Column - Brand Info */}
               <div className="col-md-5 brand-section">
                 <div className="brand-content animate__fadeInLeft">
-                  <h1 className="brand-title">tournyaka</h1>
+                  <h1 className="brand-title">Tournyaka</h1>
                   <p className="brand-description">
                     Tournyaka merupakan sebuah platform pariwisata berbasis digital
                     dengan konsep smart tourism yang memudahkan wisatawan untuk

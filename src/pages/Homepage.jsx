@@ -20,7 +20,7 @@ const Homepage = () => {
           <div className="hero-overlay"></div>
           <div className="container">
             <div className="hero-content animate__fadeIn">
-              <h1 className="hero-title">tournyaka</h1>
+              <h1 className="hero-title">Tournyaka</h1>
               <p className="hero-description">
                 Tournyaka merupakan sebuah platform pariwisata berbasis digital dengan konsep smart tourism 
                 yang memudahkan wisatawan untuk mendapatkan layanan jasa pariwisata di Pangandaran
@@ -54,7 +54,7 @@ const Homepage = () => {
         {/* Features Section */}
         <section className="features-section">
           <div className="container">
-            <h2 className="section-title text-center">Mengapa harus tournyaka?</h2>
+            <h2 className="section-title text-center">Mengapa harus Tournyaka?</h2>
             <div className="features-grid">
               <div className="feature-card animate__fadeInUp">
                 <div className="feature-icon">
@@ -91,7 +91,9 @@ const Homepage = () => {
           <div className="container">
             <h2 className="section-title text-center">Destinasi Terbaik</h2>
             <p className="section-description text-center mb-5">
-              Di Pangandaran banyak loh destinasi yang bisa bikin kamu nyaman dan ngelupain masalah yang lagi kamu hadapin.
+            Liburan sering kali menjadi solusi terbaik untuk mengatasi kepenatan hidup. 
+            Beragam destinasi di Indonesia menawarkan keindahan yang mampu memberikan rasa nyaman dan membantu melupakan sejenak masalah yang sedang dihadapi. 
+            Berikut ini adalah beberapa jenis destinasi wisata dari berbagai daerah yang bisa kamu jadikan pilihan untuk merasakan ketenangan dan kebahagiaan:
             </p>
             <div className="destinations-grid">
               <div className="destination-card animate__fadeInUp">

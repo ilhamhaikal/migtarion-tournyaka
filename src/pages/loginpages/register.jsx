@@ -86,7 +86,7 @@ const Register = () => {
               {/* Text on Right */}
               <div className="col-md-5 brand-section order-md-2">
                 <div className="brand-content animate__fadeInRight">
-                  <h1 className="brand-title">tournyaka</h1>
+                  <h1 className="brand-title">Tournyaka</h1>
                   <p className="brand-description">
                     Bergabung dengan Tournyaka dan nikmati perjalanan wisata yang tak terlupakan di Pangandaran
                   </p>
