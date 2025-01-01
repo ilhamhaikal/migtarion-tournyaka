@@ -1,9 +1,58 @@
-import React from "react";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import "../../assets/css/login.css";
 import backgroundImage from "../../assets/img/batukaras.png";
 import Navbar from "../../layout/navbar";
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/login', formData);
+      console.log('Login Response:', response.data);
+
+      if (response.data && response.data.token) {
+        // Store token and user role in localStorage
+        localStorage.setItem('token', response.data.token);
+        const userRole = response.data.user?.role; // Safely access role
+        console.log('User Role:', userRole);
+
+        if (userRole) {
+          // Redirect based on role
+          if (userRole === 3) {
+            console.log('Role 3: Redirecting to homepage...');
+            navigate('/');
+          } else {
+            console.log(`Role ${userRole}: Redirecting to dashboard...`);
+            navigate('/dashboard');
+          }
+        } else {
+          throw new Error('Invalid user role');
+        }
+      } else {
+        throw new Error('Invalid login response');
+      }
+    } catch (err) {
+      console.error('Login Error:', err);
+      setError(err.response?.data?.message || 'Login failed. Please try again.');
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return (
     <>
       <Navbar />
@@ -41,33 +90,30 @@ const Login = () => {
                   <h2 className="login-title">Welcome Back!</h2>
                   <p className="login-subtitle">Mulai menjelajah lebih jauh dari sini.</p>
 
-                  <button className="social-login-btn">
-                    <img
-                      src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                      alt="Google"
-                      className="social-icon"
-                    />
-                    Masuk dengan Google
-                  </button>
-                  <form className="login-form">
+                  <form onSubmit={handleSubmit} className="login-form">
+                    {error && <div className="alert alert-danger">{error}</div>}
                     <div className="form-group">
-                      <label className="form-label">Email atau Username</label>
                       <input
-                        type="text"
-                        className="form-input"
-                        placeholder="Masukkan email atau username"
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
-
                     <div className="form-group">
-                      <label className="form-label">Password</label>
                       <input
                         type="password"
-                        className="form-input"
-                        placeholder="Masukkan password"
+                        name="password"
+                        className="form-control"
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
-
                     <div className="form-action">
                       <label className="remember-me">
                         <input type="checkbox" /> Ingat saya
@@ -76,11 +122,9 @@ const Login = () => {
                         Lupa Password?
                       </a>
                     </div>
-
                     <button type="submit" className="login-button">
                       Masuk
                     </button>
-
                     <p className="register-link">
                       Belum memiliki akun? <a href="/register">Daftar</a>
                     </p>
