@@ -9,23 +9,21 @@ const AddArticle = () => {
   });
 
   return (
-    <div className="dashboard__content">
-      <div className="article-header">
+    <div className="article-dashboard__content">
         <h2>Create New Article</h2>
-        <div className="action-buttons">
+        <div className="article-action-buttons">
           <button className="article-btn article-btn--draft">Save Draft</button>
           <button className="article-btn article-btn--publish">Publish</button>
-        </div>
       </div>
 
       <div className="article-form">
-        <div className="form-section">
-          <div className="form-group">
-            <label className="form-label">Article Title</label>
-            <input 
-              type="text" 
-              className="form-input title-input"
-              placeholder="Enter article title..."
+        <div className="article-form-section">
+          <div className="article-form-group">
+            <label className="article-form-label">Article Title</label>
+            <input
+              type="text"
+              className="article-form-input"
+              placeholder="Enter article title"
               value={article.title}
               onChange={(e) => setArticle({...article, title: e.target.value})}
             />

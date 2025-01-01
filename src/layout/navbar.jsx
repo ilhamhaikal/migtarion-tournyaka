@@ -50,8 +50,8 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link 
-                className={`nav-link ${location.pathname === '/article' ? 'active' : ''}`}
-                to="/article"
+                className={`nav-link ${location.pathname === '/articles' ? 'active' : ''}`}
+                to="/articles"
               >
                 Article
               </Link>
