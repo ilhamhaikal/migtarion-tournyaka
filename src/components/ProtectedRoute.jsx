@@ -1,11 +1,18 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem('adminToken');
+const ProtectedRoute = ({ children, allowedRoles }) => {
+  const token = localStorage.getItem('token');
+  const role = Number(localStorage.getItem('role'));
   
-  if (!isAuthenticated) {
-    return <Navigate to="/admin/login" replace />;
+  // Check if user is authenticated
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  // Check if role is allowed
+  if (!allowedRoles.includes(role)) {
+    // Redirect to home for role 3, dashboard for others
+    return <Navigate to={role === 3 ? '/' : '/dashboard'} replace />;
   }
   
   return children;

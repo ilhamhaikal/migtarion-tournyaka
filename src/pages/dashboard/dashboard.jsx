@@ -6,6 +6,12 @@ import AddArticle from './AddArticle';
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
+  
+  const handleMenuClick = () => {
+    if (window.innerWidth <= 768) {
+      setSidebarOpen(false);
+    }
+  };
 
   const menuItems = [
     { path: '/dashboard', icon: 'fa-home', label: 'Dashboard' },
@@ -18,7 +24,7 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
-          <h2>Tournyaka</h2>
+          <Link to="/">Tournyaka</Link>
           <button onClick={() => setSidebarOpen(!sidebarOpen)}>
             <i className="fas fa-bars"></i>
           </button>
@@ -27,9 +33,14 @@ const Dashboard = () => {
         <nav className="sidebar-nav">
           <ul>
             {menuItems.map((item, index) => (
-              <li key={index} className={window.location.pathname === item.path ? 'active' : ''}>
+              <li 
+                key={index} 
+                className={window.location.pathname === item.path ? 'active' : ''}
+                onClick={handleMenuClick}
+              >
                 <Link to={item.path}>
-                  <i className={`fas ${item.icon}`}></i> {item.label}
+                  <i className={`fas ${item.icon}`}></i>
+                  <span>{item.label}</span>
                 </Link>
               </li>
             ))}
