@@ -1,10 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Navbar from "../layout/navbar";
 import Footer from "../layout/footer";
 import "../assets/css/global.css";
 import aboutImage from "../assets/img/about.jpg";
 
 const AboutUs = () => {
+  const navigate = useNavigate(); // Inisialisasi useNavigate
+  
+  // Fungsi untuk navigasi ke halaman yang tidak ada
+  const handleTourismClick = () => {
+    navigate("/tourism-details"); // Rute yang tidak ada untuk memicu page not found
+  };
+
   return (
     <>
       <Navbar />
@@ -56,7 +64,7 @@ const AboutUs = () => {
               </p>
             </div>
             <div className="features-image animate__fadeInRight">
-              <img src="/images/tourism.jpg" alt="Tourism" />
+              <img src="/img/bg.jpg" alt="Tourism" />
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import "../assets/css/global.css";
+import { Link } from "react-router-dom";
 import bgImage from "../assets/img/bg.jpg";
 import logoImage from "../assets/img/Logo.png";
 import pangandaranImage from "../assets/img/pangandaran.png";
@@ -25,9 +26,10 @@ const Homepage = () => {
                 Tournyaka merupakan sebuah platform pariwisata berbasis digital dengan konsep smart tourism 
                 yang memudahkan wisatawan untuk mendapatkan layanan jasa pariwisata di Pangandaran
               </p>
-              <a className="cta-button" href="/explore">
+              {/* Ganti <a> dengan <Link> */}
+              <Link to="/articles" className="cta-button">
                 Ayo Berangkat! <i className="fas fa-arrow-right"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </header>

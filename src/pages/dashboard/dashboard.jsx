@@ -14,10 +14,10 @@ const Dashboard = () => {
   };
 
   const menuItems = [
-    { path: '/dashboard', icon: 'fa-home', label: 'Dashboard' },
-    { path: '/dashboard/add-article', icon: 'fa-newspaper', label: 'Artikel' },
-    { path: '/dashboard/events', icon: 'fa-calendar', label: 'Events' },
-    { path: '/dashboard/users', icon: 'fa-users', label: 'Users' }
+    { path: '/admin/dashboard', icon: 'fa-home', label: 'Dashboard' },
+    { path: '/admin/dashboard/add-article', icon: 'fa-newspaper', label: 'Artikel' },
+    { path: '/admin/dashboard/events', icon: 'fa-calendar', label: 'Events' },
+    { path: '/admin/dashboard/users', icon: 'fa-users', label: 'Users' }
   ];
 
   return (

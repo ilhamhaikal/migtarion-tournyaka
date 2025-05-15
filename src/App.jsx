@@ -1,31 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
-import Home from './pages/homepage/home';
-import Login from './pages/loginpages/login';
-import Register from './pages/registerpages/register';
-import Dashboard from './pages/dashboard/dashboard';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Articles from './pages/Articles';
+import ArticleDetail from './pages/article/ArticleDetail';
+import About from './pages/About';
+import NotFound from './pages/NotFound'; // Import komponen NotFound
 
-const App = () => {
+function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        {/* Public Routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/articles" element={<Articles />} />
+        <Route path="/article/:id" element={<ArticleDetail />} />
+        <Route path="/about" element={<About />} />
         
-        {/* Protected Routes */}
-        <Route 
-          path="/dashboard/*" 
-          element={
-            <ProtectedRoute allowedRoles={[1, 2, 4]}>
-              <Dashboard />
-            </ProtectedRoute>
-          } 
-        />
+        {/* Route untuk menangkap semua URL yang tidak terdaftar */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
-};
+}
 
 export default App;

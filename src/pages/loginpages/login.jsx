@@ -17,32 +17,25 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8080/api/v1/login', formData);
-      console.log('Login Response:', response.data);
 
-      if (response.data && response.data.token) {
-        // Store token and user role in localStorage
-        localStorage.setItem('token', response.data.token);
-        const userRole = response.data.user?.role; // Safely access role
-        console.log('User Role:', userRole);
-
-        if (userRole) {
-          // Redirect based on role
-          if (userRole === 3) {
-            console.log('Role 3: Redirecting to homepage...');
-            navigate('/');
-          } else {
-            console.log(`Role ${userRole}: Redirecting to dashboard...`);
-            navigate('/dashboard');
-          }
+      if (response.data.status === 'success' && response.data.tokens) {
+        const userRole = Number(response.data.user.role_id);
+        
+        // Store user data
+        localStorage.setItem('token', response.data.tokens.AccessToken);
+        localStorage.setItem('role', Number(response.data.role));
+        
+        // Strict navigation based on role
+        if (userRole === 3) {
+          navigate('/');
+        } else if ([1, 2, 4].includes(userRole)) {
+          navigate('/dashboard');
         } else {
-          throw new Error('Invalid user role');
+          navigate('/');
         }
-      } else {
-        throw new Error('Invalid login response');
       }
     } catch (err) {
-      console.error('Login Error:', err);
-      setError(err.response?.data?.message || 'Login failed. Please try again.');
+      setError(err.response?.data?.message || 'Login failed');
     }
   };
 

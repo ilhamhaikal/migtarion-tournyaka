@@ -5,7 +5,7 @@ const PublicRoute = ({ children }) => {
   const userRole = Number(localStorage.getItem('role'));
 
   if (isAuth) {
-    return <Navigate to={userRole === 3 ? '/' : '/dashboard'} replace />;
+    return <Navigate to={userRole === 3 ? '/' : '/admin/dashboard'} replace />;
   }
 
   return children;
