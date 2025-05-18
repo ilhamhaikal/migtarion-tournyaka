@@ -33,10 +33,9 @@ const ArticleDetail = () => {
     const fetchArticleDetails = async () => {
       try {
         setLoading(true);
-        // Gunakan articleId yang sudah diekstrak, bukan slug langsung
         const response = await axios.get(`http://localhost:8080/api/v1/articles/${articleId}`);
         console.log('API response:', response.data);
-
+        
         let articleData;
         if (response.data && response.data.data) {
           articleData = response.data.data;
@@ -45,20 +44,33 @@ const ArticleDetail = () => {
         } else {
           throw new Error('Format data tidak valid');
         }
-
-        // Transformasi data galeri menjadi format yang diharapkan oleh komponen
-        if (articleData.gallery && Array.isArray(articleData.gallery)) {
+        
+        // Log untuk debugging
+        console.log('Gallery data before transformation:', articleData.gallery);
+        
+        // Transformasi data gallery ke gallery_images
+        if (articleData.gallery && Array.isArray(articleData.gallery) && articleData.gallery.length > 0) {
           articleData.gallery_images = articleData.gallery.map(item => ({
-            // Transformasi properti image_url menjadi url
-            url: item.image_url,
-            caption: item.caption
+            url: getCompleteImageUrl(item.image_url),
+            caption: item.caption || '',
+            image_url: item.image_url // Simpan juga image_url asli
           }));
           console.log('Gallery transformed:', articleData.gallery_images);
         } else {
-          // Default empty array
+          // Jika tidak ada gallery, set sebagai array kosong
           articleData.gallery_images = [];
         }
-
+        
+        // Tambahkan setelah transformasi galeri
+        console.log('Final gallery structure:', {
+          gallery: articleData.gallery,
+          gallery_images: articleData.gallery_images,
+          firstImage: articleData.gallery_images && articleData.gallery_images[0] ? {
+            url: articleData.gallery_images[0].url,
+            caption: articleData.gallery_images[0].caption
+          } : null
+        });
+        
         setArticle(articleData);
         setLoading(false);
       } catch (err) {
@@ -292,6 +304,24 @@ const ArticleDetail = () => {
     document.body.style.overflow = ''; // Kembalikan overflow ke default
   };
 
+  // Tambahkan fungsi helper untuk mengolah URL gambar
+  const getCompleteImageUrl = (imagePath) => {
+    if (!imagePath) return articleImage; // Gunakan gambar default jika tidak ada path
+    
+    // Jika URL sudah lengkap, kembalikan apa adanya
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    
+    // Jika URL relatif, tambahkan base URL
+    if (imagePath.startsWith('/uploads')) {
+      return `http://localhost:8080${imagePath}`;
+    }
+    
+    // Kembalikan URL apa adanya untuk kasus lain
+    return imagePath;
+  };
+
   return (
     <>
       <Navbar />
@@ -329,17 +359,21 @@ const ArticleDetail = () => {
                 <div className="article-image-container">
                   {article.image_url ? (
                     <LazyLoadImage
-                      src={article.image_url}
+                      src={getCompleteImageUrl(article.image_url)}
                       alt={article.title}
                       effect="blur"
                       className="article-image"
                       threshold={100}
+                      width="100%"
+                      height="auto"
+                      style={{ objectFit: "cover", maxHeight: "500px" }}
                       placeholder={
                         <div className="image-placeholder">
                           <i className="fas fa-image"></i>
                         </div>
                       }
                       onError={(e) => {
+                        console.error('Error loading image:', article.image_url);
                         e.target.src = articleImage;
                         e.target.onerror = null;
                       }}
@@ -357,70 +391,71 @@ const ArticleDetail = () => {
                 <div className="article-text">
                   {article.content ? 
                     (() => {
-                      // Pisahkan konten menjadi paragraf
-                      const paragraphs = article.content.split('\n\n');
-                      
-                      // Tentukan posisi galeri berdasarkan jumlah paragraf
-                      let galleryPosition = Math.floor(paragraphs.length / 2);
-                      
-                      // Jika ada 3 paragraf, galeri setelah paragraf ke-2
-                      if (paragraphs.length === 3) {
-                        galleryPosition = 1; // index 1 = paragraf ke-2
-                      } 
-                      // Jika ada 5 paragraf, galeri setelah paragraf ke-3
-                      else if (paragraphs.length === 5) {
-                        galleryPosition = 2; // index 2 = paragraf ke-3
+                      // Periksa apakah konten sudah dalam format HTML
+                      if (article.content.includes('<') && article.content.includes('>')) {
+                        // Gunakan dangerouslySetInnerHTML untuk render HTML
+                        return <div dangerouslySetInnerHTML={{ __html: article.content }} />;
+                      } else {
+                        // Untuk plain text, pisahkan konten menjadi paragraf
+                        const paragraphs = article.content.split('\n\n');
+                        
+                        // Tentukan posisi galeri berdasarkan jumlah paragraf
+                        let galleryPosition = Math.floor(paragraphs.length / 2);
+                        
+                        // Jika ada 3 paragraf, galeri setelah paragraf ke-2
+                        if (paragraphs.length === 3) {
+                          galleryPosition = 1; // index 1 = paragraf ke-2
+                        } 
+                        // Jika ada 5 paragraf, galeri setelah paragraf ke-3
+                        else if (paragraphs.length === 5) {
+                          galleryPosition = 2; // index 2 = paragraf ke-3
+                        }
+                        
+                        // Render semua elemen
+                        return (
+                          <>
+                            {/* Render paragraf */}
+                            {paragraphs.map((paragraph, index) => (
+                              <p key={`para-${index}`}>{paragraph}</p>
+                            ))}
+                          </>
+                        );
                       }
-                      
-                      // Render semua elemen
-                      return (
-                        <>
-                          {/* Render paragraf sebelum galeri */}
-                          {paragraphs.slice(0, galleryPosition + 1).map((paragraph, index) => (
-                            <p key={`pre-${index}`}>{paragraph}</p>
-                          ))}
-                          
-                          {/* Tampilkan galeri di tengah konten */}
-                          {article.gallery_images && article.gallery_images.length > 0 && (
-                            <div className="article-gallery">
-                              <h3>Galeri Foto</h3>
-                              <div className={`gallery-container gallery-count-${article.gallery_images.length}`}>
-                                {article.gallery_images.map((image, index) => (
-                                  <div 
-                                    key={index} 
-                                    className={`gallery-item ${index === 0 ? 'gallery-item-main' : ''}`}
-                                    onClick={() => openImageViewer(index)}
-                                  >
-                                    <LazyLoadImage
-                                      src={image.url}
-                                      alt={image.caption || `Galeri foto ${index + 1}`}
-                                      effect="blur"
-                                      threshold={100}
-                                      className="gallery-image"
-                                      onError={(e) => {
-                                        e.target.src = articleImage;
-                                        e.target.onerror = null;
-                                      }}
-                                    />
-                                    {image.caption && <div className="gallery-caption">{image.caption}</div>}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                          
-                          {/* Render paragraf setelah galeri */}
-                          {paragraphs.slice(galleryPosition + 1).map((paragraph, index) => (
-                            <p key={`post-${index}`}>{paragraph}</p>
-                          ))}
-                        </>
-                      );
                     })()
                     : 
                     <p>Tidak ada konten tersedia untuk artikel ini.</p>
                   }
                 </div>
 
+                {/* Galeri setelah konten utama */}
+                {article.gallery_images && Array.isArray(article.gallery_images) && article.gallery_images.length > 0 && (
+                  <div className="article-gallery">
+                    <h3>Galeri Foto</h3>
+                    <div className={`gallery-container gallery-count-${article.gallery_images.length}`}>
+                      {article.gallery_images.map((image, index) => (
+                        <div 
+                          key={index} 
+                          className={`gallery-item ${index === 0 && article.gallery_images.length >= 3 ? 'gallery-item-main' : ''}`}
+                          onClick={() => openImageViewer(index)}
+                        >
+                          <img
+                            src={image.url}
+                            alt={image.caption || `Foto galeri ${index + 1}`}
+                            className="gallery-image"
+                            loading="lazy"
+                            onError={(e) => {
+                              console.error('Error loading gallery image:', image.url);
+                              e.target.src = articleImage;
+                              e.target.onerror = null;
+                            }}
+                          />
+                          {image.caption && <div className="gallery-caption">{image.caption}</div>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
                 {/* Tambahkan komponen untuk video YouTube */}
                 {article.video_url && (
                   <div className="article-video-container">
@@ -639,7 +674,8 @@ const ArticleDetail = () => {
         </div>
       </div>
 
-      {isImageViewerOpen && (
+      {/* Image Viewer Modal dengan Desain yang Lebih Modern */}
+      {isImageViewerOpen && article.gallery_images && article.gallery_images.length > currentImageIndex && (
         <div className="image-viewer-modal" onClick={closeImageViewer}>
           <button className="close-viewer" onClick={closeImageViewer}>
             <i className="fas fa-times"></i>
@@ -655,14 +691,21 @@ const ArticleDetail = () => {
           </button>
           <div className="image-viewer-content" onClick={(e) => e.stopPropagation()}>
             <img 
-              src={article.gallery_images[currentImageIndex].url} 
-              alt={article.gallery_images[currentImageIndex].caption || "Gambar Galeri"} 
+              src={article.gallery_images[currentImageIndex].url || getCompleteImageUrl(article.gallery_images[currentImageIndex].image_url || '')} 
+              alt={article.gallery_images[currentImageIndex].caption || "Gambar Galeri"}
+              onError={(e) => {
+                e.target.src = articleImage;
+                e.target.onerror = null;
+              }}
             />
             {article.gallery_images[currentImageIndex].caption && (
               <div className="viewer-caption">
                 {article.gallery_images[currentImageIndex].caption}
               </div>
             )}
+            <div className="viewer-counter">
+              {currentImageIndex + 1} / {article.gallery_images.length}
+            </div>
           </div>
           <button 
             className="next-image" 

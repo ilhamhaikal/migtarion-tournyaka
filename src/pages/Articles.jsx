@@ -243,23 +243,39 @@ const Articles = () => {
     const fetchArticles = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:8080/api/v1/articles');
-        console.log('API Response:', response.data);
+        let allArticles = [];
+        let page = 1;
+        let hasMorePages = true;
         
-        let articlesData = [];
-        
-        if (response.data && response.data.data && response.data.data.articles) {
-          articlesData = response.data.data.articles;
-        } else if (response.data && response.data.articles) {
-          articlesData = response.data.articles;
-        } else if (Array.isArray(response.data)) {
-          articlesData = response.data;
-        } else {
-          console.warn('Struktur data tidak dikenali:', response.data);
+        // Fetch semua halaman secara berurutan
+        while (hasMorePages) {
+          const response = await axios.get(`http://localhost:8080/api/v1/articles?page=${page}&limit=20`);
+          console.log(`Fetching page ${page}:`, response.data);
+          
+          let articlesData = [];
+          let pagination = null;
+          
+          if (response.data && response.data.data) {
+            articlesData = response.data.data.articles || [];
+            pagination = response.data.data.pagination;
+          } else if (response.data && Array.isArray(response.data)) {
+            articlesData = response.data;
+          }
+          
+          if (articlesData.length > 0) {
+            allArticles = [...allArticles, ...articlesData];
+          }
+          
+          // Periksa apakah masih ada halaman berikutnya
+          if (pagination && pagination.current_page < pagination.total_pages) {
+            page++;
+          } else {
+            hasMorePages = false;
+          }
         }
         
-        console.log('Extracted articles:', articlesData);
-        setArticles(articlesData);
+        console.log('All fetched articles:', allArticles);
+        setArticles(allArticles);
         setLoading(false);
       } catch (err) {
         console.error('Error fetching articles:', err);
@@ -383,6 +399,24 @@ const Articles = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const nextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+
+  // Tambahkan fungsi helper untuk menangani URL gambar seperti di ArticleDetail.jsx
+  const getCompleteImageUrl = (imagePath) => {
+    if (!imagePath) return 'https://via.placeholder.com/600x400';
+    
+    // Jika URL sudah lengkap, kembalikan apa adanya
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    
+    // Jika URL relatif, tambahkan base URL
+    if (imagePath.startsWith('/uploads')) {
+      return `http://localhost:8080${imagePath}`;
+    }
+    
+    // Kembalikan URL apa adanya untuk kasus lain
+    return imagePath;
+  };
 
   return (
     <>
@@ -509,10 +543,12 @@ const Articles = () => {
                     <article key={article.id} className="article-card animate__fadeIn">
                       <div className="article-image">
                         <img 
-                          src={article.image_url || 'https://via.placeholder.com/600x400'} 
+                          src={getCompleteImageUrl(article.image_url)} 
                           alt={article.title} 
                           onError={(e) => {
+                            console.error('Error loading article image:', article.image_url);
                             e.target.src = 'https://via.placeholder.com/600x400';
+                            e.target.onerror = null;
                           }}
                         />
                         <div className="article-overlay">

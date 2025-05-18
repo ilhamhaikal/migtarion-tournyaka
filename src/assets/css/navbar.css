@@ -12,6 +12,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-left: 0; /* Kurangi padding container */
+  padding-right: 15px;
 }
 
 .navbar-scrolled {
@@ -26,6 +28,7 @@
   font-weight: 700;
   color: #fff;
   margin-right: 2rem;
+  padding-left: -100; /* Hapus padding kiri yang membuat teks terlalu masuk ke dalam */
   transition: color 0.3s ease;
 }
 
@@ -243,6 +246,10 @@
 
   .navbar-scrolled .navbar-collapse {
     background: white;
+  }
+
+  .navbar-brand {
+    padding-left: 0.5rem; /* Kurangi padding pada layar kecil */
   }
 }
 

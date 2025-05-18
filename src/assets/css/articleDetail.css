@@ -24,10 +24,11 @@ body {
 }
 
 .article-title {
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   font-weight: 700;
-  margin-bottom: 1.75rem; /* Tambah margin bawah dari 1rem menjadi 1.75rem */
-  line-height: 1.3; /* Tingkatkan line-height dari 1.2 menjadi 1.3 */
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
   padding-bottom: 0.5rem; /* Tambahkan padding bawah */
   position: relative; /* Untuk styling tambahan */
 }
@@ -69,9 +70,9 @@ body {
 }
 
 .article-text {
-  line-height: 1.8;
-  font-size: 1rem;
   color: #374151;
+  font-size: 1.1rem;
+  line-height: 1.8;
 }
 
 .article-layout {
@@ -282,6 +283,44 @@ body {
 
 .articleDetail-text p {
   margin-bottom: 1.5rem;
+}
+
+/* Perbaikan layout artikel untuk lebih elegan */
+.article-container {
+  background-color: #f9fafb;
+}
+
+.article-main-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  line-height: 1.8;
+}
+
+.article-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.article-text {
+  color: #374151;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.article-text p {
+  margin-bottom: 1.5rem;
+}
+
+/* Pemisah pada section berbeda */
+.article-section-separator {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+  margin: 2.5rem 0;
 }
 
 /* Responsiveness */
@@ -1090,7 +1129,7 @@ body .navbar-article-detail:not(.scrolled) {
   color: white;
   font-size: 2rem;
   transition: transform 0.2s;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
 }
 
 .video-thumbnail:hover .play-button {
@@ -1108,36 +1147,80 @@ body .navbar-article-detail:not(.scrolled) {
   100% { background-color: transparent; }
 }
 
-/* Perbaikan spesifik untuk halaman detail artikel */
-.article-main-content .article-image-container {
-  width: 100%;
-  margin: 1rem 0; /* Kurangi margin dari 2rem ke 1rem */
-  overflow: hidden;
-  border-radius: 8px;
+/* Perbaikan posisi tombol close pada Image Viewer */
+.close-viewer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2100;
+  transition: background-color 0.3s;
 }
 
-.article-main-content .article-image {
-  max-width: 100%;
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0; /* Hapus margin bottom */
-  border-radius: 8px;
+.close-viewer:hover {
+  background: rgba(255, 0, 0, 0.7);
 }
 
-.article-main-content .article-text {
-  margin-top: 1.25rem; /* Spasi yang lebih kecil setelah gambar */
-  line-height: 1.7;
-  font-size: 1rem;
-  color: #374151;
+/* Pastikan tombol navigasi tetap di posisi samping */
+.prev-image {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2010;
 }
 
-.article-main-content .article-text p {
-  margin-bottom: 1.25rem; /* Kurangi jarak antar paragraf */
+.next-image {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2010;
 }
 
-.article-main-content .article-text p:last-child {
-  margin-bottom: 0; /* Hapus margin bottom paragraf terakhir */
+.prev-image:hover, .next-image:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Buat gambar viewer lebih fokus */
+.image-viewer-content {
+  position: relative;
+  max-width: 85%;
+  max-height: 85vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Pastikan selector ini lebih spesifik untuk container utama */
@@ -1159,292 +1242,143 @@ body .navbar-article-detail:not(.scrolled) {
 
 /* Styling untuk Galeri Artikel */
 .article-gallery {
-  margin: 2.5rem 0;
-  background-color: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin: 2rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .article-gallery h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  margin-bottom: 1rem;
-  padding: 0 0 0.5rem 0;
   color: #1f2937;
-  border-bottom: 2px solid #f3f4f6;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
 }
 
+.article-gallery h3:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: #4f46e5;
+}
+
+/* Tampilan Grid Galeri dengan Ukuran Lebih Kecil */
 .gallery-container {
   display: grid;
-  gap: 0.75rem;
-  width: 100%;
+  grid-gap: 10px;
+  margin: 15px 0;
+  max-width: 800px; /* Batasi lebar maksimal */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Layout untuk 1 gambar */
+/* Layout untuk berbagai jumlah gambar */
 .gallery-count-1 {
   grid-template-columns: 1fr;
-  grid-template-rows: 400px;
+  max-width: 500px; /* Lebih kecil untuk single image */
 }
 
-/* Layout untuk 2 gambar */
 .gallery-count-2 {
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 300px;
 }
 
-/* Layout untuk 3 gambar */
 .gallery-count-3 {
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 200px);
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.gallery-count-3 .gallery-item:first-child {
-  grid-column: 1 / span 2;
-  grid-row: 1;
-  height: 100%;
-}
-
-/* Layout untuk 4 gambar */
 .gallery-count-4 {
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 200px);
 }
 
-/* Layout untuk 5 gambar */
-.gallery-count-5 {
+.gallery-count-5, .gallery-count-6 {
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 200px);
-}
-
-.gallery-count-5 .gallery-item:first-child {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  height: 100%;
 }
 
 .gallery-item {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 0;
+  padding-bottom: 56.25%; /* Aspect ratio 16:9 - lebih lebar, kurang tinggi */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Item pertama lebih besar untuk galeri dengan 3+ gambar */
+.gallery-count-3 .gallery-item:first-child,
+.gallery-count-4 .gallery-item:first-child,
+.gallery-count-5 .gallery-item:first-child,
+.gallery-count-6 .gallery-item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
 }
 
 .gallery-item:hover {
   transform: scale(1.02);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
 .gallery-image {
+  position: absolute !important;
+  top: 0;
+  left: 0;
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
-  transition: transform 0.5s ease;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
-.gallery-item:hover .gallery-image {
-  transform: scale(1.05);
-}
-
+/* Caption overlay dengan ukuran font lebih kecil */
 .gallery-caption {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
-  padding: 0.5rem;
-  font-size: 0.85rem;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  text-align: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s;
 }
 
 .gallery-item:hover .gallery-caption {
   opacity: 1;
 }
 
-/* Image Viewer Modal */
+/* Pastikan Image Viewer tetap menampilkan gambar penuh */
 .image-viewer-modal {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
   z-index: 2000;
-  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .image-viewer-content {
   position: relative;
   max-width: 90%;
-  max-height: 90%;
+  max-height: 90vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .image-viewer-content img {
   max-width: 100%;
-  max-height: 80vh;
-  object-fit: contain;
+  max-height: 85vh;
+  object-fit: contain; /* Penting: mempertahankan aspek rasio tanpa memotong */
   border-radius: 4px;
-}
-
-.viewer-caption {
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  margin-top: 0.5rem;
-  border-radius: 4px;
-}
-
-.close-viewer,
-.prev-image,
-.next-image {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  position: absolute;
-}
-
-.close-viewer:hover,
-.prev-image:hover,
-.next-image:hover {
-  background: rgba(255, 255, 255, 0.4);
-}
-
-.close-viewer {
-  top: 1rem;
-  right: 1rem;
-  z-index: 2;
-}
-
-.prev-image {
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.next-image {
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
-  .gallery-count-2,
-  .gallery-count-3,
-  .gallery-count-4,
-  .gallery-count-5 {
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  .gallery-count-3 .gallery-item:first-child,
-  .gallery-count-5 .gallery-item:first-child {
-    grid-column: 1 / span 2;
-    grid-row: 1;
-  }
-  
-  .gallery-count-1 {
-    grid-template-rows: 300px;
-  }
-  
-  .gallery-count-2,
-  .gallery-count-3,
-  .gallery-count-4,
-  .gallery-count-5 {
-    grid-template-rows: auto;
-  }
-  
-  .gallery-item {
-    height: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .gallery-count-2,
-  .gallery-count-3,
-  .gallery-count-4,
-  .gallery-count-5 {
-    grid-template-columns: 1fr;
-  }
-  
-  .gallery-count-3 .gallery-item:first-child,
-  .gallery-count-5 .gallery-item:first-child {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  
-  .gallery-item {
-    height: 200px;
-  }
-}
-
-/* Tambahkan style untuk pemisah kategori */
-.category-separator {
-  margin: 0 0.25rem;
-  color: #666;
-  display: inline-block;
-}
-
-/* Pastikan tag kategori memiliki margin yang konsisten */
-.category-tag {
-  background-color: #f3f4f6;
-  color: #4b5563;
-  padding: 0.35rem 0.75rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  display: inline-block;
-  margin-right: 0.25rem;
-  margin-bottom: 0.5rem;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.category-tag:hover {
-  background-color: #e5e7eb;
-  color: #1f2937;
-}
-
-/* Article Meta Container */
-.article-meta-container {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.article-meta {
-  color: #6b7280;
-  font-size: 0.95rem;
-  margin: 0;
-}
-
-.article-meta i {
-  margin-right: 0.4rem;
-  color: #4b5563;
-}
-
-.article-author-meta {
-  display: flex;
-  align-items: center;
-}
-
-@media (max-width: 576px) {
-  .article-meta-container {
-    gap: 1rem;
-  }
 }
